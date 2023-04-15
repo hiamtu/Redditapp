@@ -8,8 +8,7 @@ import 'package:reddit_tutorial/core/type_defs.dart';
 
 final storageRepositoryProvider = Provider(
   (ref) => StorageRepository(
-    firebaseStorage: ref.watch(
-        storageProvider as AlwaysAliveProviderListenable<FirebaseStorage>),
+    firebaseStorage: ref.watch<FirebaseStorage>(storageProvider),
   ),
 );
 
