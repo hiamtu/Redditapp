@@ -6,6 +6,7 @@ import 'package:reddit_tutorial/core/failure.dart';
 import 'package:reddit_tutorial/core/providers/firebase_providers.dart';
 import 'package:reddit_tutorial/core/type_defs.dart';
 import 'package:reddit_tutorial/models/community_model.dart';
+import 'package:reddit_tutorial/models/post_model.dart';
 
 final communityRepositoryProvider = Provider((ref) {
   return CommunityRepository(firestore: ref.watch(firestoreProvider));
@@ -30,14 +31,15 @@ class CommunityRepository {
       return left(Failure(e.toString()));
     }
   }
-  FutureVoid joinCommunity(String communityName, String userId)async{
-    try{
+
+  FutureVoid joinCommunity(String communityName, String userId) async {
+    try {
       return right(_communities.doc(communityName).update({
         'members': FieldValue.arrayUnion([userId]),
       }));
-    }on FirebaseException catch(e){
+    } on FirebaseException catch (e) {
       throw e.message!;
-    }catch (e){
+    } catch (e) {
       return left(Failure(e.toString()));
     }
   }
@@ -53,6 +55,7 @@ class CommunityRepository {
       return left(Failure(e.toString()));
     }
   }
+
   Stream<List<Community>> getUserCommunities(String uid) {
     return _communities
         .where('members', arrayContains: uid)
@@ -81,7 +84,6 @@ class CommunityRepository {
     }
   }
 
-
   Stream<List<Community>> searchCommunity(String query) {
     return _communities
         .where(
@@ -105,10 +107,10 @@ class CommunityRepository {
     });
   }
 
-  FutureVoid addMods(String communityName,List<String> uids) async {
+  FutureVoid addMods(String communityName, List<String> uids) async {
     try {
       return right(_communities.doc(communityName).update({
-        'mods':uids,
+        'mods': uids,
       }));
     } on FirebaseException catch (e) {
       throw e.message!;
@@ -116,6 +118,25 @@ class CommunityRepository {
       return left(Failure(e.toString()));
     }
   }
+
+  Stream<List<Post>> getCommunityPosts(String name) {
+    return _posts
+        .where('communityName', isEqualTo: name)
+        .orderBy('createdAt', descending: true)
+        .snapshots()
+        .map(
+          (event) => event.docs
+              .map(
+                (e) => Post.fromMap(
+                  e.data() as Map<String, dynamic>,
+                ),
+              )
+              .toList(),
+        );
+  }
+
+  CollectionReference get _posts =>
+      _firestore.collection(FirebaseConstants.postsCollection);
 
   CollectionReference get _communities =>
       _firestore.collection(FirebaseConstants.commentsCollection);
