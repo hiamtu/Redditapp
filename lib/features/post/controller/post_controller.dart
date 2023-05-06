@@ -57,30 +57,30 @@ class PostController extends StateNotifier<bool> {
         _storageRepository = storageRepository,
         super(false);
 
-  void shareTextPost({
-    required BuildContext context,
-    required String title,
-    required Community selectedCommunity,
-    required String description,
-  }) async {
+  void shareTextPost(
+      {required BuildContext context,
+      required String title,
+      required Community selectedCommunity,
+      required String description,
+      required String location}) async {
     state = true;
     String postId = const Uuid().v1();
     final user = _ref.read(userProvider)!;
     final Post post = Post(
-      id: postId,
-      title: title,
-      communityName: selectedCommunity.name,
-      communityProfilePic: selectedCommunity.avatar,
-      upvotes: [],
-      downvotes: [],
-      commentCount: 0,
-      username: user.name,
-      uid: user.uid,
-      type: 'text',
-      createdAt: DateTime.now(),
-      awards: [],
-      description: description,
-    );
+        id: postId,
+        title: title,
+        communityName: selectedCommunity.name,
+        communityProfilePic: selectedCommunity.avatar,
+        upvotes: [],
+        downvotes: [],
+        commentCount: 0,
+        username: user.name,
+        uid: user.uid,
+        type: 'text',
+        createdAt: DateTime.now(),
+        awards: [],
+        description: description,
+        location: location);
     final res = await _postRepository.addPost(post);
     _ref
         .read(userProfileControllerProvider.notifier)
@@ -92,30 +92,30 @@ class PostController extends StateNotifier<bool> {
     });
   }
 
-  void shareLinkPost({
-    required BuildContext context,
-    required String title,
-    required Community selectedCommunity,
-    required String link,
-  }) async {
+  void shareLinkPost(
+      {required BuildContext context,
+      required String title,
+      required Community selectedCommunity,
+      required String link,
+      required String location}) async {
     state = true;
     String postId = const Uuid().v1();
     final user = _ref.read(userProvider)!;
     final Post post = Post(
-      id: postId,
-      title: title,
-      communityName: selectedCommunity.name,
-      communityProfilePic: selectedCommunity.avatar,
-      upvotes: [],
-      downvotes: [],
-      commentCount: 0,
-      username: user.name,
-      uid: user.uid,
-      type: 'link',
-      createdAt: DateTime.now(),
-      awards: [],
-      link: link,
-    );
+        id: postId,
+        title: title,
+        communityName: selectedCommunity.name,
+        communityProfilePic: selectedCommunity.avatar,
+        upvotes: [],
+        downvotes: [],
+        commentCount: 0,
+        username: user.name,
+        uid: user.uid,
+        type: 'link',
+        createdAt: DateTime.now(),
+        awards: [],
+        link: link,
+        location: location);
     final res = await _postRepository.addPost(post);
     _ref
         .read(userProfileControllerProvider.notifier)
@@ -127,12 +127,12 @@ class PostController extends StateNotifier<bool> {
     });
   }
 
-  void shareImagePost({
-    required BuildContext context,
-    required String title,
-    required Community selectedCommunity,
-    required File? file,
-  }) async {
+  void shareImagePost(
+      {required BuildContext context,
+      required String title,
+      required Community selectedCommunity,
+      required File? file,
+      required String location}) async {
     state = true;
     String postId = const Uuid().v1();
     final user = _ref.read(userProvider)!;
@@ -144,20 +144,20 @@ class PostController extends StateNotifier<bool> {
 
     imageRes.fold((l) => showSnackBar(context, l.message), (r) async {
       final Post post = Post(
-        id: postId,
-        title: title,
-        communityName: selectedCommunity.name,
-        communityProfilePic: selectedCommunity.avatar,
-        upvotes: [],
-        downvotes: [],
-        commentCount: 0,
-        username: user.name,
-        uid: user.uid,
-        type: 'image',
-        createdAt: DateTime.now(),
-        awards: [],
-        link: r,
-      );
+          id: postId,
+          title: title,
+          communityName: selectedCommunity.name,
+          communityProfilePic: selectedCommunity.avatar,
+          upvotes: [],
+          downvotes: [],
+          commentCount: 0,
+          username: user.name,
+          uid: user.uid,
+          type: 'image',
+          createdAt: DateTime.now(),
+          awards: [],
+          link: r,
+          location: location);
       final res = await _postRepository.addPost(post);
       _ref
           .read(userProfileControllerProvider.notifier)

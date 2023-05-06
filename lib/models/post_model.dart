@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/foundation.dart';
+import 'package:geocoding/geocoding.dart';
 
 class Post {
   final String id;
@@ -17,40 +16,40 @@ class Post {
   final String type;
   final DateTime createdAt;
   final List<String> awards;
-  Post({
-    required this.id,
-    required this.title,
-    this.link,
-    this.description,
-    required this.communityName,
-    required this.communityProfilePic,
-    required this.upvotes,
-    required this.downvotes,
-    required this.commentCount,
-    required this.username,
-    required this.uid,
-    required this.type,
-    required this.createdAt,
-    required this.awards,
-  });
+  final String location;
+  Post(
+      {required this.id,
+      required this.title,
+      this.link,
+      this.description,
+      required this.communityName,
+      required this.communityProfilePic,
+      required this.upvotes,
+      required this.downvotes,
+      required this.commentCount,
+      required this.username,
+      required this.uid,
+      required this.type,
+      required this.createdAt,
+      required this.awards,
+      required this.location});
 
-
-  Post copyWith({
-    String? id,
-    String? title,
-    String? link,
-    String? description,
-    String? communityName,
-    String? communityProfilePic,
-    List<String>? upvotes,
-    List<String>? downvotes,
-    int? commentCount,
-    String? username,
-    String? uid,
-    String? type,
-    DateTime? createdAt,
-    List<String>? awards,
-  }) {
+  Post copyWith(
+      {String? id,
+      String? title,
+      String? link,
+      String? description,
+      String? communityName,
+      String? communityProfilePic,
+      List<String>? upvotes,
+      List<String>? downvotes,
+      int? commentCount,
+      String? username,
+      String? uid,
+      String? type,
+      DateTime? createdAt,
+      List<String>? awards,
+      String? location}) {
     return Post(
       id: id ?? this.id,
       title: title ?? this.title,
@@ -66,6 +65,7 @@ class Post {
       type: type ?? this.type,
       createdAt: createdAt ?? this.createdAt,
       awards: awards ?? this.awards,
+      location: location ?? this.location,
     );
   }
 
@@ -85,6 +85,7 @@ class Post {
       'type': type,
       'createdAt': createdAt.millisecondsSinceEpoch,
       'awards': awards,
+      'location': location
     };
   }
 
@@ -104,51 +105,52 @@ class Post {
       type: map['type'] ?? '',
       createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt']),
       awards: List<String>.from(map['awards']),
+      location: map['location'] ?? '',
     );
   }
 
-  
   @override
   String toString() {
-    return 'Post(id: $id, title: $title, link: $link, description: $description, communityName: $communityName, communityProfilePic: $communityProfilePic, upvotes: $upvotes, downvotes: $downvotes, commentCount: $commentCount, username: $username, uid: $uid, type: $type, createdAt: $createdAt, awards: $awards)';
+    return 'Post(id: $id, title: $title, link: $link, description: $description, communityName: $communityName, communityProfilePic: $communityProfilePic, upvotes: $upvotes, downvotes: $downvotes, commentCount: $commentCount, username: $username, uid: $uid, type: $type, createdAt: $createdAt, awards: $awards,location: $location)';
   }
 
   @override
   bool operator ==(covariant Post other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.link == link &&
-      other.description == description &&
-      other.communityName == communityName &&
-      other.communityProfilePic == communityProfilePic &&
-      listEquals(other.upvotes, upvotes) &&
-      listEquals(other.downvotes, downvotes) &&
-      other.commentCount == commentCount &&
-      other.username == username &&
-      other.uid == uid &&
-      other.type == type &&
-      other.createdAt == createdAt &&
-      listEquals(other.awards, awards);
+
+    return other.id == id &&
+        other.title == title &&
+        other.link == link &&
+        other.description == description &&
+        other.communityName == communityName &&
+        other.communityProfilePic == communityProfilePic &&
+        listEquals(other.upvotes, upvotes) &&
+        listEquals(other.downvotes, downvotes) &&
+        other.commentCount == commentCount &&
+        other.username == username &&
+        other.uid == uid &&
+        other.type == type &&
+        other.createdAt == createdAt &&
+        listEquals(other.awards, awards) &&
+        other.location == location;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      link.hashCode ^
-      description.hashCode ^
-      communityName.hashCode ^
-      communityProfilePic.hashCode ^
-      upvotes.hashCode ^
-      downvotes.hashCode ^
-      commentCount.hashCode ^
-      username.hashCode ^
-      uid.hashCode ^
-      type.hashCode ^
-      createdAt.hashCode ^
-      awards.hashCode;
+        title.hashCode ^
+        link.hashCode ^
+        description.hashCode ^
+        communityName.hashCode ^
+        communityProfilePic.hashCode ^
+        upvotes.hashCode ^
+        downvotes.hashCode ^
+        commentCount.hashCode ^
+        username.hashCode ^
+        uid.hashCode ^
+        type.hashCode ^
+        createdAt.hashCode ^
+        awards.hashCode ^
+        location.hashCode;
   }
 }
