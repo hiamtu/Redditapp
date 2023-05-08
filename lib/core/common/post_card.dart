@@ -18,16 +18,6 @@ class PostCard extends ConsumerWidget {
     super.key,
     required this.post,
   });
-  Future<String> parseLocation(String location) async {
-    List<String> values = location.split(",");
-
-    double latitude = double.tryParse(values.first.trim()) ?? 52.2165157;
-    double longitude = double.tryParse(values.last.trim()) ?? 6.9437819;
-    List<Placemark> placemarks =
-        await placemarkFromCoordinates(latitude, longitude);
-    var address = '${placemarks.first.street}, ${placemarks.first.country}';
-    return address;
-  }
 
   void deletePost(WidgetRef ref, BuildContext context) async {
     ref.read(postControllerProvider.notifier).deletePost(post, context);
@@ -166,32 +156,20 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          FutureBuilder<String>(
-                            future: parseLocation(post.location),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Row(children: [
-                                    const Icon(
-                                      Icons.location_on_outlined,
-                                      color: Colors.red,
-                                    ),
-                                    Text(
-                                      snapshot.data!,
-                                      style: const TextStyle(
-                                        fontSize: 19,
-                                      ),
-                                    ),
-                                  ]),
-                                );
-                              } else if (snapshot.hasError) {
-                                return const ErrorText(
-                                    error: 'Failed to load location');
-                              } else {
-                                return const Loader();
-                              }
-                            },
+                          Padding(
+                            padding: const EdgeInsets.only(top: 10.0),
+                            child: Row(children: [
+                              const Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.red,
+                              ),
+                              Text(
+                                post.location,
+                                style: const TextStyle(
+                                  fontSize: 19,
+                                ),
+                              ),
+                            ]),
                           ),
                           if (isTypeImage)
                             SizedBox(

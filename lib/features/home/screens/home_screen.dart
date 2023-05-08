@@ -7,6 +7,7 @@ import 'package:reddit_tutorial/features/home/delegates/search_community_delegat
 import 'package:reddit_tutorial/features/home/drawers/community_list_drawer.dart';
 import 'package:reddit_tutorial/features/home/drawers/profile_drawer.dart';
 import 'package:reddit_tutorial/theme/pallete.dart';
+import 'package:routemaster/routemaster.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -51,6 +52,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
+              Routemaster.of(context).push('/scan-qr-code');
+            },
+            icon: const Icon(Icons.qr_code_scanner),
+          ),
+          IconButton(
+            onPressed: () {
               showSearch(
                   context: context, delegate: SearchCommunityDelegate(ref));
             },
@@ -69,7 +76,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: Constants.tabWidgets[_page],
       drawer: const CommunityListDrawer(),
       endDrawer: isGuest ? null : const ProfileDrawer(),
-      bottomNavigationBar: isGuest 
+      bottomNavigationBar: isGuest
           ? null
           : CupertinoTabBar(
               activeColor: currentTheme.iconTheme.color,

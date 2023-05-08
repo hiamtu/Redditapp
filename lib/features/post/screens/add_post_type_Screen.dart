@@ -187,8 +187,7 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
                             print(pickedData.latLong.latitude);
                             print(pickedData.latLong.longitude);
                             print(pickedData.address);
-                            locationController.text =
-                                '${pickedData.latLong.latitude},${pickedData.latLong.longitude}';
+                            locationController.text = pickedData.address;
                           }),
                     ),
                     const SizedBox(height: 20),

@@ -73,20 +73,31 @@ class CommunityController extends StateNotifier<bool> {
     });
   }
 
-  void joinCommunity(Community community, BuildContext context)async{
+  void joinCommunity(Community community, BuildContext context) async {
     final user = _ref.read(userProvider)!;
-    Either<Failure, void>res;
-    if(community.members.contains(user.uid)){
+    Either<Failure, void> res;
+    if (community.members.contains(user.uid)) {
       res = await _communityRepository.leaveCommunity(community.name, user.uid);
-    }else{
+    } else {
       res = await _communityRepository.joinCommunity(community.name, user.uid);
     }
     res.fold((l) => showSnackBar(context, l.message), (r) {
-      if (community.members.contains(user.uid)){
+      if (community.members.contains(user.uid)) {
         showSnackBar(context, 'Community left successfuly!');
-      }else{
+      } else {
         showSnackBar(context, 'Community joined successfuly!');
       }
+    });
+  }
+
+  void joinCommunityByQR(String communityName, BuildContext context) async {
+    final user = _ref.read(userProvider)!;
+    Either<Failure, void> res;
+
+    res = await _communityRepository.joinCommunity(communityName, user.uid);
+
+    res.fold((l) => showSnackBar(context, l.message), (r) {
+      showSnackBar(context, 'Community joined successfuly!');
     });
   }
 
@@ -132,14 +143,17 @@ class CommunityController extends StateNotifier<bool> {
   Stream<List<Community>> searchCommunity(String query) {
     return _communityRepository.searchCommunity(query);
   }
-  void addMods(String communityName, List<String>uids,BuildContext context)async{
-   final res = await _communityRepository.addMods(communityName, uids);
-   res.fold(
-    (l)=>showSnackBar(context, l.message),
-    (r)=>Routemaster.of(context).pop(),
-   );
+
+  void addMods(
+      String communityName, List<String> uids, BuildContext context) async {
+    final res = await _communityRepository.addMods(communityName, uids);
+    res.fold(
+      (l) => showSnackBar(context, l.message),
+      (r) => Routemaster.of(context).pop(),
+    );
   }
-   Stream<List<Post>> getCommunityPosts(String name) {
+
+  Stream<List<Post>> getCommunityPosts(String name) {
     return _communityRepository.getCommunityPosts(name);
   }
 }

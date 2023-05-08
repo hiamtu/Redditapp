@@ -5,6 +5,8 @@ import 'package:reddit_tutorial/features/community/screens/community_screen.dart
 import 'package:reddit_tutorial/features/community/screens/create_community_screen.dart';
 import 'package:reddit_tutorial/features/community/screens/edit_community_screen.dart';
 import 'package:reddit_tutorial/features/community/screens/mod_tools_screen.dart';
+import 'package:reddit_tutorial/features/community/screens/qr_code.dart';
+import 'package:reddit_tutorial/features/community/screens/scan_qr_screen.dart';
 import 'package:reddit_tutorial/features/home/screens/home_screen.dart';
 import 'package:reddit_tutorial/features/post/screens/add_post_type_Screen.dart';
 import 'package:reddit_tutorial/features/user_profile/screens/edit_profile_screen.dart';
@@ -51,6 +53,14 @@ final loggedInRoute = RouteMap(
           child: EditProfileScreen(
             uid: routeData.pathParameters['uid']!,
           ),
+        ),
+    '/qr-code/:community': (routeData) => MaterialPage(
+          child: GenerateQR(
+            community: routeData.pathParameters['community']!,
+          ),
+        ),
+    '/scan-qr-code': (routeData) => const MaterialPage(
+          child: ScanQRScreen(),
         ),
     '/add-post/:type': (routeData) => MaterialPage(
           child: AddPostTypeScreen(

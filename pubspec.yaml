@@ -49,6 +49,9 @@ dependencies:
   any_link_preview: ^3.0.0
   geocoding: ^2.1.0
   open_street_map_search_and_pick: ^0.0.16
+  path_provider: ^2.0.14
+  qr_flutter: ^4.0.0
+  qr_code_scanner: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
