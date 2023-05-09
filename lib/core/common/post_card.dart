@@ -156,21 +156,24 @@ class PostCard extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Row(children: [
-                              const Icon(
-                                Icons.location_on_outlined,
-                                color: Colors.red,
-                              ),
-                              Text(
-                                post.location,
-                                style: const TextStyle(
-                                  fontSize: 19,
+                          if (post.location.isNotEmpty)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Row(children: [
+                                const Icon(
+                                  Icons.location_on_outlined,
+                                  color: Colors.red,
                                 ),
-                              ),
-                            ]),
-                          ),
+                                Expanded(
+                                  child: Text(
+                                    post.location,
+                                    style: const TextStyle(
+                                        fontSize: 15,
+                                        overflow: TextOverflow.ellipsis),
+                                  ),
+                                ),
+                              ]),
+                            ),
                           if (isTypeImage)
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.35,
