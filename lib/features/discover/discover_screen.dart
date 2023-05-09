@@ -1,5 +1,11 @@
+import 'dart:async';
+import 'dart:math';
+import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
+var isPreview = StreamController<bool>();
+String currentPreviewImgUrl = '';
 
 class DiscoverScreen extends StatefulWidget {
   const DiscoverScreen({Key? key}) : super(key: key);
@@ -33,28 +39,34 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: StaggeredGrid.count(
-          crossAxisCount: 4,
-          mainAxisSpacing: 4,
-          crossAxisSpacing: 4,
-          children: [
-            ...tiles.map((tile) {
-              int index = tiles.indexOf(tile);
-              return StaggeredGridTile.count(
-                crossAxisCellCount: tile.crossAxisCount,
-                mainAxisCellCount: tile.mainAxisCount,
+        body: SingleChildScrollView(
+      child: StaggeredGrid.count(
+        crossAxisCount: 4,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 3,
+        children: [
+          ...tiles.map((tile) {
+            int index = tiles.indexOf(tile);
+            return StaggeredGridTile.count(
+              crossAxisCellCount: tile.crossAxisCount,
+              mainAxisCellCount: tile.mainAxisCount,
+              child: PinchZoom(
+                zoomEnabled: true,
+                onZoomStart: () {
+                  print('Start zooming');
+                },
+                maxScale: 2.5,
                 child: ImageTile(
                   index: index,
                   width: tile.crossAxisCount * 100,
                   height: tile.mainAxisCount * 100,
                 ),
-              );
-            }),
-          ],
-        ),
+              ),
+            );
+          }),
+        ],
       ),
-    );
+    ));
   }
 }
 
@@ -79,7 +91,7 @@ class ImageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.network(
-      'https://picsum.photos/$width/$height?random=$index',
+      'https://picsum.photos/$width/$height?random=${index * Random().nextInt(200)}',
       width: width.toDouble(),
       height: height.toDouble(),
       fit: BoxFit.cover,
