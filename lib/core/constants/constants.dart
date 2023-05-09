@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:reddit_tutorial/features/chat/chat_screen.dart';
 import 'package:reddit_tutorial/features/feed/feed_screen.dart';
+import 'package:reddit_tutorial/features/inbox/inbox_screen.dart';
 import 'package:reddit_tutorial/features/post/screens/add_post_screen.dart';
+import 'package:reddit_tutorial/features/discover/discover_screen.dart';
 
-class Constants{
-  static const logoPath= 'assets/images/logo.png';
-  static const loginEmotePath= 'assets/images/loginEmote.png';
+class Constants {
+  static const logoPath = 'assets/images/logo.png';
+  static const loginEmotePath = 'assets/images/loginEmote.png';
   static const googlePath = 'assets/images/google.png';
 
   static const bannerDefault =
-      'https://thumbs.dreamstime.com/b/abstract-stained-pattern-rectangle-background-blue-sky-over-fiery-red-orange-color-modern-painting-art-watercolor-effe-texture-123047399.jpg';
+      'https://images.pexels.com/photos/15759773/pexels-photo-15759773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1';
   static const avatarDefault =
       'https://external-preview.redd.it/5kh5OreeLd85QsqYO1Xz_4XSLYwZntfjqou-8fyBFoE.png?auto=webp&s=dbdabd04c399ce9c761ff899f5d38656d1de87c2';
   static const tabWidgets = [
     FeedScreen(),
+    DiscoverScreen(),
     AddPostScreen(),
+    ChatScreen(),
+    InboxScreen()
   ];
 
-  
   static const IconData up =
       IconData(0xe800, fontFamily: 'MyFlutterApp', fontPackage: null);
   static const IconData down =

@@ -84,11 +84,23 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.home),
-                  label: '',
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.explore_outlined),
+                  label: 'Discover',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.add),
-                  label: '',
+                  label: 'Create',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.wechat),
+                  label: 'Chat',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.notifications_none),
+                  label: 'Inbox',
                 ),
               ],
               onTap: onPageChanged,
