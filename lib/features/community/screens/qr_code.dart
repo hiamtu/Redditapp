@@ -10,6 +10,7 @@ class GenerateQR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       //Appbar having title
       appBar: AppBar(),
       body: Container(
@@ -25,7 +26,10 @@ class GenerateQR extends StatelessWidget {
               const Center(
                   child: Text(
                 "Generate QR Code",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.black),
               )),
             ],
           ),

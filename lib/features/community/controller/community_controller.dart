@@ -83,21 +83,22 @@ class CommunityController extends StateNotifier<bool> {
     }
     res.fold((l) => showSnackBar(context, l.message), (r) {
       if (community.members.contains(user.uid)) {
-        showSnackBar(context, 'Community left successfuly!');
+        showSnackBar(context, 'Community left successfuly! 🥲');
       } else {
-        showSnackBar(context, 'Community joined successfuly!');
+        showSnackBar(context, 'Community joined successfuly! 🤩🤩');
       }
     });
   }
 
   void joinCommunityByQR(String communityName, BuildContext context) async {
     final user = _ref.read(userProvider)!;
+
     Either<Failure, void> res;
 
     res = await _communityRepository.joinCommunity(communityName, user.uid);
 
     res.fold((l) => showSnackBar(context, l.message), (r) {
-      showSnackBar(context, 'Community joined successfuly!');
+      showSnackBar(context, 'Community joined successfuly!🤩🤩');
     });
   }
 
