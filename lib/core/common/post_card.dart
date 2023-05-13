@@ -10,7 +10,7 @@ import 'package:reddit_tutorial/features/post/controller/post_controller.dart';
 import 'package:reddit_tutorial/models/post_model.dart';
 import 'package:reddit_tutorial/theme/pallete.dart';
 import 'package:routemaster/routemaster.dart';
-import 'package:geocoding/geocoding.dart';
+import 'package:pinch_zoom/pinch_zoom.dart';
 
 class PostCard extends ConsumerWidget {
   final Post post;
@@ -178,9 +178,12 @@ class PostCard extends ConsumerWidget {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.35,
                               width: double.infinity,
-                              child: Image.network(
-                                post.link!,
-                                fit: BoxFit.cover,
+                              child: PinchZoom(
+                                maxScale: 2.5,
+                                child: Image.network(
+                                  post.link!,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
                           if (isTypeLink)

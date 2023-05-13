@@ -117,11 +117,16 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
                   children: [
                     TextField(
                       controller: titleController,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              width: 1, color: Colors.white), //<-- SEE HERE
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                         filled: true,
                         hintText: 'Enter Title here',
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.all(18),
+                        contentPadding: const EdgeInsets.all(18),
                       ),
                       maxLength: 30,
                     ),
@@ -182,7 +187,7 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
                       child: OpenStreetMapSearchAndPick(
                           center: LatLong(15.534165, 95.2407705),
                           buttonColor: Colors.blue,
-                          buttonText: 'Set Current Location',
+                          buttonText: 'Set Your Current Location',
                           onPicked: (pickedData) {
                             print(pickedData.latLong.latitude);
                             print(pickedData.latLong.longitude);

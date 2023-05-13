@@ -13,7 +13,7 @@ class AddPostScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double cardHeightWidth = 120;
-    double iconSize = 60;
+    double iconSize = 40;
     final currentTheme = ref.watch(themeNotifierProvider);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -31,9 +31,15 @@ class AddPostScreen extends ConsumerWidget {
               color: currentTheme.backgroundColor,
               elevation: 16,
               child: Center(
-                child: Icon(
-                  Icons.image_outlined,
-                  size: iconSize,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.image_outlined,
+                      size: iconSize,
+                    ),
+                    const Text('Image')
+                  ],
                 ),
               ),
             ),
@@ -51,9 +57,15 @@ class AddPostScreen extends ConsumerWidget {
               color: currentTheme.backgroundColor,
               elevation: 16,
               child: Center(
-                child: Icon(
-                  Icons.font_download_off_outlined,
-                  size: iconSize,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.font_download_off_outlined,
+                      size: iconSize,
+                    ),
+                    const Text('Text')
+                  ],
                 ),
               ),
             ),
@@ -71,9 +83,15 @@ class AddPostScreen extends ConsumerWidget {
               color: currentTheme.backgroundColor,
               elevation: 16,
               child: Center(
-                child: Icon(
-                  Icons.link_off_outlined,
-                  size: iconSize,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.link_off_outlined,
+                      size: iconSize,
+                    ),
+                    const Text('Link')
+                  ],
                 ),
               ),
             ),

@@ -50,17 +50,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             return StaggeredGridTile.count(
               crossAxisCellCount: tile.crossAxisCount,
               mainAxisCellCount: tile.mainAxisCount,
-              child: PinchZoom(
-                zoomEnabled: true,
-                onZoomStart: () {
-                  print('Start zooming');
-                },
-                maxScale: 2.5,
-                child: ImageTile(
-                  index: index,
-                  width: tile.crossAxisCount * 100,
-                  height: tile.mainAxisCount * 100,
-                ),
+              child: ImageTile(
+                index: index,
+                width: tile.crossAxisCount * 100,
+                height: tile.mainAxisCount * 100,
               ),
             );
           }),

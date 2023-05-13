@@ -68,7 +68,7 @@ class CommunityController extends StateNotifier<bool> {
     final res = await _communityRepository.createCommunity(community);
     state = false;
     res.fold((l) => showSnackBar(context, l.message), (r) {
-      showSnackBar(context, 'Conmunity created successfully!');
+      showSnackBar(context, 'Conmunity created successfully! 😍');
       Routemaster.of(context).pop();
     });
   }
