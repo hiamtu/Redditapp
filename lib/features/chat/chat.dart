@@ -15,6 +15,7 @@ import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:reddit_tutorial/theme/pallete.dart';
+import 'package:routemaster/routemaster.dart';
 
 class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({super.key, required this.room, this.name});
@@ -27,10 +28,14 @@ class ChatPage extends ConsumerStatefulWidget {
 
 class _ChatPageState extends ConsumerState<ChatPage> {
   bool _isAttachmentUploading = false;
+  void navigateToUserProfile(BuildContext context, String uid) {
+    Routemaster.of(context).push('/u/$uid');
+  }
 
   @override
   Widget build(BuildContext context) {
     final currentTheme = ref.watch(themeNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -45,6 +50,13 @@ class _ChatPageState extends ConsumerState<ChatPage> {
           initialData: const [],
           stream: FirebaseChatCore.instance.messages(snapshot.data!),
           builder: (context, snapshot) => Chat(
+            onMessageLongPress: (context, message) {
+              FirebaseChatCore.instance
+                  .deleteMessage(widget.room.id, message.id);
+            },
+            onAvatarTap: (userOfOther) {
+              navigateToUserProfile(context, userOfOther.id);
+            },
             showUserNames: true,
             showUserAvatars: true,
             isAttachmentUploading: _isAttachmentUploading,

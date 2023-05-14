@@ -42,37 +42,23 @@ class ProfileDrawer extends ConsumerWidget {
             const SizedBox(height: 10),
             const Divider(),
             ListTile(
-              title: const Text('My Profile'),
-              leading: const Icon(Icons.person),
+              title: const Text('My profile'),
+              leading: const Icon(Icons.account_circle_outlined),
               onTap: () => navigateToUserProfile(context, user.uid),
             ),
             ListTile(
-              title: const Text('Log Out'),
+              title: const Text('Log out'),
               leading: Icon(
                 Icons.logout,
                 color: Pallete.redColor,
               ),
               onTap: () => logOut(ref),
             ),
-            // Switch.adaptive(
-            //   value: ref.watch(themeNotifierProvider.notifier).mode ==
-            //       ThemeMode.dark,
-            //   onChanged: (val) => toggleTheme(ref),
-            // ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Options',
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                    ],
-                  ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 22, top: 10),
                     child: Row(
@@ -105,18 +91,10 @@ class ProfileDrawer extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 22, top: 10),
                     child: InkWell(
-                      onTap: () {
-                        // Future.delayed(Duration(milliseconds: 500),
-                        //     () => widget.toggleDrawer(false));
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Saved(),
-                        //   ),
-                        // );
-                      },
+                      onTap: () {},
                       child: Row(
                         children: [
-                          const Icon(Icons.bookmark_rounded),
+                          const Icon(Icons.bookmarks),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
@@ -131,22 +109,32 @@ class ProfileDrawer extends ConsumerWidget {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 22, top: 10),
                     child: InkWell(
-                      onTap: () {
-                        // Future.delayed(Duration(milliseconds: 500),
-                        //     () => widget.toggleDrawer(false));
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => MoreOptions(),
-                        //   ),
-                        // );
-                      },
+                      onTap: () {},
                       child: Row(
                         children: [
-                          const Icon(Icons.more_horiz_rounded),
+                          const Icon(Icons.history),
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Text(
-                              'More options',
+                              'History',
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 22, top: 10),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Row(
+                        children: [
+                          const Icon(Icons.pending_actions_outlined),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              'Peding Posts',
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                           ),

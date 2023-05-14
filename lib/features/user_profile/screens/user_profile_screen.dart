@@ -49,21 +49,23 @@ class UserProfileScreen extends ConsumerWidget {
                             ),
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.bottomLeft,
-                          padding: const EdgeInsets.all(20),
-                          child: OutlinedButton(
-                            onPressed: () => navigateToEditUser(context),
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 25),
-                            ),
-                            child: const Text('Edit Profile'),
-                          ),
-                        ),
+                        uid == user.uid
+                            ? Container(
+                                alignment: Alignment.bottomLeft,
+                                padding: const EdgeInsets.all(20),
+                                child: OutlinedButton(
+                                  onPressed: () => navigateToEditUser(context),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 25),
+                                  ),
+                                  child: const Text('Edit Profile'),
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   ),

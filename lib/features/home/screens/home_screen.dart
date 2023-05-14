@@ -18,7 +18,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _page = 0;
-
+  final widgetTitle = ["Home", "Explore", "Create", "Chat", "Inbox"];
   void displayDrawer(BuildContext context) {
     Scaffold.of(context).openDrawer();
   }
@@ -41,7 +41,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        centerTitle: false,
+        title: Text(widgetTitle.elementAt(_page)),
+        centerTitle: _page == 0 ? false : true,
         leading: Builder(builder: (context) {
           return IconButton(
             icon: const Icon(Icons.menu),
@@ -49,12 +50,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           );
         }),
         actions: [
-          IconButton(
-            onPressed: () {
-              Routemaster.of(context).push('/scan-qr-code');
-            },
-            icon: const Icon(Icons.qr_code_scanner),
-          ),
+          _page == 0
+              ? IconButton(
+                  onPressed: () {
+                    Routemaster.of(context).push('/scan-qr-code');
+                  },
+                  icon: const Icon(Icons.qr_code_scanner),
+                )
+              : Container(),
           IconButton(
             onPressed: () {
               showSearch(

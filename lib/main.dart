@@ -31,11 +31,13 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-
   UserModel? userModel;
 
-  void getData(WidgetRef ref, User data)async{
-    userModel = await ref.watch(authControllerProvider.notifier).getUserData(data.uid).first;
+  void getData(WidgetRef ref, User data) async {
+    userModel = await ref
+        .watch(authControllerProvider.notifier)
+        .getUserData(data.uid)
+        .first;
     ref.read(userProvider.notifier).update((state) => userModel);
     setState(() {});
   }
@@ -45,12 +47,12 @@ class _MyAppState extends ConsumerState<MyApp> {
     return ref.watch(authStateChangeProvider).when(
           data: (data) => MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            title: 'Reddit Tutorial',
+            title: 'reddit',
             theme: ref.watch(themeNotifierProvider),
             routerDelegate: RoutemasterDelegate(routesBuilder: (context) {
               if (data != null) {
                 getData(ref, data);
-                if(userModel !=null){
+                if (userModel != null) {
                   return loggedInRoute;
                 }
               }
