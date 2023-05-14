@@ -8,50 +8,59 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:reddit_tutorial/theme/pallete.dart';
 
-class ChatPage extends StatefulWidget {
+class ChatPage extends ConsumerStatefulWidget {
   const ChatPage({super.key, required this.room, this.name});
 
   final types.Room room;
   final String? name;
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends ConsumerState<ChatPage> {
   bool _isAttachmentUploading = false;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-          title: Text(widget.name ?? 'Chat'),
+  Widget build(BuildContext context) {
+    final currentTheme = ref.watch(themeNotifierProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          widget.name ?? 'Chat',
+          style: currentTheme.appBarTheme.titleTextStyle,
         ),
-        body: StreamBuilder<types.Room>(
-          initialData: widget.room,
-          stream: FirebaseChatCore.instance.room(widget.room.id),
-          builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
-            initialData: const [],
-            stream: FirebaseChatCore.instance.messages(snapshot.data!),
-            builder: (context, snapshot) => Chat(
-              isAttachmentUploading: _isAttachmentUploading,
-              messages: snapshot.data ?? [],
-              onAttachmentPressed: _handleAtachmentPressed,
-              onMessageTap: _handleMessageTap,
-              onPreviewDataFetched: _handlePreviewDataFetched,
-              onSendPressed: _handleSendPressed,
-              user: types.User(
-                id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
-              ),
+      ),
+      body: StreamBuilder<types.Room>(
+        initialData: widget.room,
+        stream: FirebaseChatCore.instance.room(widget.room.id),
+        builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
+          initialData: const [],
+          stream: FirebaseChatCore.instance.messages(snapshot.data!),
+          builder: (context, snapshot) => Chat(
+            showUserNames: true,
+            showUserAvatars: true,
+            isAttachmentUploading: _isAttachmentUploading,
+            messages: snapshot.data ?? [],
+            onAttachmentPressed: _handleAtachmentPressed,
+            onMessageTap: _handleMessageTap,
+            onPreviewDataFetched: _handlePreviewDataFetched,
+            onSendPressed: _handleSendPressed,
+            user: types.User(
+              id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
 
   void _handleAtachmentPressed() {
     showModalBottomSheet<void>(

@@ -21,11 +21,11 @@ class Pallete {
     scaffoldBackgroundColor: blackColor,
     cardColor: greyColor,
     appBarTheme: const AppBarTheme(
-      backgroundColor: drawerColor,
-      iconTheme: IconThemeData(
-        color: whiteColor,
-      ),
-    ),
+        backgroundColor: drawerColor,
+        iconTheme: IconThemeData(
+          color: whiteColor,
+        ),
+        titleTextStyle: TextStyle(color: whiteColor)),
     drawerTheme: const DrawerThemeData(
       backgroundColor: drawerColor,
     ),
@@ -38,6 +38,7 @@ class Pallete {
     scaffoldBackgroundColor: whiteColor,
     cardColor: greyColor,
     appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: blackColor),
       backgroundColor: whiteColor,
       elevation: 0,
       iconTheme: IconThemeData(
