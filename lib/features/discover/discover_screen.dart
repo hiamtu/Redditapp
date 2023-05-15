@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:pinch_zoom/pinch_zoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -16,7 +15,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   static const tiles = [
-    GridTile(2, 2),
+    GridTile(2, 3),
     GridTile(2, 1),
     GridTile(1, 2),
     GridTile(1, 1),
@@ -69,7 +68,7 @@ class GridTile {
   final int mainAxisCount;
 }
 
-class ImageTile extends StatelessWidget {
+class ImageTile extends StatefulWidget {
   const ImageTile({
     Key? key,
     required this.index,
@@ -82,12 +81,29 @@ class ImageTile extends StatelessWidget {
   final int height;
 
   @override
+  State<ImageTile> createState() => _ImageTileState();
+}
+
+class _ImageTileState extends State<ImageTile> {
+  String generateText(int length) {
+    var random = Random();
+    var charCodes = List.generate(length, (_) => random.nextInt(26) + 97);
+    return String.fromCharCodes(charCodes);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Image.network(
-      'https://picsum.photos/$width/$height?random=${index * Random().nextInt(200)}',
-      width: width.toDouble(),
-      height: height.toDouble(),
-      fit: BoxFit.cover,
-    );
+    return Stack(children: [
+      ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Image.network(
+          'https://picsum.photos/${widget.width}/${widget.height}?random=${widget.index * Random().nextInt(200)}',
+          width: widget.width.toDouble(),
+          height: widget.height.toDouble(),
+          fit: BoxFit.cover,
+        ),
+      ),
+      Positioned(left: 15, top: 15, child: Text('r/${generateText(6)}'))
+    ]);
   }
 }

@@ -16,7 +16,8 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with SingleTickerProviderStateMixin {
   int _page = 0;
   final widgetTitle = ["Home", "Explore", "Create", "Chat", "Inbox"];
   void displayDrawer(BuildContext context) {
@@ -33,6 +34,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     });
   }
 
+  late TabController _tabController;
+  @override
+  void initState() {
+    _tabController = TabController(length: 12, vsync: this);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = ref.watch(userProvider)!;
@@ -41,6 +49,115 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        bottom: _page == 1
+            ? TabBar(
+                padding: const EdgeInsets.all(12.0),
+                isScrollable: true,
+                indicator: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50), // Creates border
+                    color: Color.fromARGB(255, 188, 186, 186)),
+                controller: _tabController,
+                tabs: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'All',
+                        style: TextStyle(
+                            fontSize: 15,
+                            color:
+                                currentTheme.appBarTheme.titleTextStyle!.color),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Technology',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Funny',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Decor',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Music',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Gaming',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Nature',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Finance',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Science',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Streamers',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Cars',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('Hobbies',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: currentTheme
+                                  .appBarTheme.titleTextStyle!.color)),
+                    )
+                  ])
+            : null,
         title: Text(widgetTitle.elementAt(_page)),
         centerTitle: _page == 0 ? false : true,
         leading: Builder(builder: (context) {
