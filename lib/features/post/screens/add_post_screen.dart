@@ -15,87 +15,123 @@ class AddPostScreen extends ConsumerWidget {
     double cardHeightWidth = 120;
     double iconSize = 40;
     final currentTheme = ref.watch(themeNotifierProvider);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        GestureDetector(
-          onTap: () => navigateToType(context, 'image'),
-          child: SizedBox(
-            height: cardHeightWidth,
-            width: cardHeightWidth,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              color: currentTheme.backgroundColor,
-              elevation: 16,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.image_outlined,
-                      size: iconSize,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () => navigateToType(context, 'image'),
+              child: SizedBox(
+                height: cardHeightWidth,
+                width: cardHeightWidth,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: currentTheme.backgroundColor,
+                  elevation: 16,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.image_outlined,
+                          size: iconSize,
+                        ),
+                        const Text('Image')
+                      ],
                     ),
-                    const Text('Image')
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+            GestureDetector(
+              onTap: () => navigateToType(context, 'video'),
+              child: SizedBox(
+                height: cardHeightWidth,
+                width: cardHeightWidth,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: currentTheme.backgroundColor,
+                  elevation: 16,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.video_chat,
+                          size: iconSize,
+                        ),
+                        const Text('Video')
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        GestureDetector(
-          onTap: () => navigateToType(context, 'text'),
-          child: SizedBox(
-            height: cardHeightWidth,
-            width: cardHeightWidth,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              color: currentTheme.backgroundColor,
-              elevation: 16,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.font_download_off_outlined,
-                      size: iconSize,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () => navigateToType(context, 'text'),
+              child: SizedBox(
+                height: cardHeightWidth,
+                width: cardHeightWidth,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: currentTheme.backgroundColor,
+                  elevation: 16,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.font_download_off_outlined,
+                          size: iconSize,
+                        ),
+                        const Text('Text')
+                      ],
                     ),
-                    const Text('Text')
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        GestureDetector(
-          onTap: () => navigateToType(context, 'link'),
-          child: SizedBox(
-            height: cardHeightWidth,
-            width: cardHeightWidth,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              color: currentTheme.backgroundColor,
-              elevation: 16,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.link_off_outlined,
-                      size: iconSize,
+            GestureDetector(
+              onTap: () => navigateToType(context, 'link'),
+              child: SizedBox(
+                height: cardHeightWidth,
+                width: cardHeightWidth,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: currentTheme.backgroundColor,
+                  elevation: 16,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.link_off_outlined,
+                          size: iconSize,
+                        ),
+                        const Text('Link')
+                      ],
                     ),
-                    const Text('Link')
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ],
     );

@@ -11,6 +11,7 @@ import 'package:reddit_tutorial/models/post_model.dart';
 import 'package:reddit_tutorial/theme/pallete.dart';
 import 'package:routemaster/routemaster.dart';
 import 'package:pinch_zoom/pinch_zoom.dart';
+import 'video.dart';
 
 class PostCard extends ConsumerWidget {
   final Post post;
@@ -54,6 +55,7 @@ class PostCard extends ConsumerWidget {
     final isTypeImage = post.type == 'image';
     final isTypeText = post.type == 'text';
     final isTypeLink = post.type == 'link';
+    final isTypeVideo = post.type == 'video';
     final user = ref.watch(userProvider)!;
     final isGuest = !user.isAuthenticated;
 
@@ -186,6 +188,7 @@ class PostCard extends ConsumerWidget {
                                 ),
                               ),
                             ),
+                          if (isTypeVideo) VideoApp(title: post.link!),
                           if (isTypeLink)
                             Padding(
                               padding:

@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:video_player/video_player.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +31,19 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
   final linkController = TextEditingController();
   final locationController = TextEditingController();
   File? bannerFile;
+  File? videoFile;
   Uint8List? bannerWebFile;
   List<Community> communities = [];
   Community? selectedCommunity;
+  VideoPlayerController _controller =
+      VideoPlayerController.asset('assets/clip.mp4');
+  @override
+  void initState() {
+    _controller.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -42,6 +52,7 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
     descriptionController.dispose();
     linkController.dispose();
     locationController.dispose();
+    _controller.dispose();
   }
 
   void selectBannerImage() async {
@@ -59,6 +70,20 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
     }
   }
 
+  void selectVideo() async {
+    final res = await pickVideo();
+
+    if (res != null) {
+      setState(() {
+        videoFile = File(res.files.first.path!);
+        _controller = VideoPlayerController.file(videoFile!);
+      });
+      _controller.setLooping(true);
+      _controller.initialize().then((_) => setState(() {}));
+      _controller.play();
+    }
+  }
+
   void sharePost() {
     if (widget.type == 'image' &&
         (bannerFile != null || bannerWebFile != null) &&
@@ -68,6 +93,15 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
           title: titleController.text.trim(),
           selectedCommunity: selectedCommunity ?? communities[0],
           file: bannerFile,
+          location: locationController.text.trim());
+    } else if (widget.type == 'video' &&
+        (videoFile != null) &&
+        titleController.text.isNotEmpty) {
+      ref.read(postControllerProvider.notifier).shareVideoPost(
+          context: context,
+          title: titleController.text.trim(),
+          selectedCommunity: selectedCommunity ?? communities[0],
+          file: videoFile,
           location: locationController.text.trim());
     } else if (widget.type == 'text' && titleController.text.isNotEmpty) {
       ref.read(postControllerProvider.notifier).shareTextPost(
@@ -95,6 +129,7 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
     final isTypeImage = widget.type == 'image';
     final isTypeText = widget.type == 'text';
     final isTypeLink = widget.type == 'link';
+    final isTypeVideo = widget.type == 'video';
     final currentTheme = ref.watch(themeNotifierProvider);
     final isLoading = ref.watch(postControllerProvider);
 
@@ -157,6 +192,31 @@ class _AddPostTypeScreenState extends ConsumerState<AddPostTypeScreen> {
                                         ),
                                       ),
                           ),
+                        ),
+                      ),
+                    if (isTypeVideo)
+                      GestureDetector(
+                        onTap: selectVideo,
+                        child: DottedBorder(
+                          borderType: BorderType.RRect,
+                          radius: const Radius.circular(10),
+                          dashPattern: const [10, 4],
+                          strokeCap: StrokeCap.round,
+                          color: currentTheme.textTheme.bodyText2!.color!,
+                          child: Container(
+                              width: double.infinity,
+                              height: MediaQuery.of(context).size.height / 3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: videoFile != null
+                                  ? VideoPlayer(_controller)
+                                  : const Center(
+                                      child: Icon(
+                                        Icons.camera_alt_outlined,
+                                        size: 40,
+                                      ),
+                                    )),
                         ),
                       ),
                     if (isTypeText)
