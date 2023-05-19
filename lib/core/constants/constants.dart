@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:reddit_tutorial/features/chat/chat_screen.dart';
 import 'package:reddit_tutorial/features/feed/feed_screen.dart';
-import 'package:reddit_tutorial/features/inbox/inbox_screen.dart';
+import 'package:reddit_tutorial/features/inbox/screens/inbox_screen.dart';
 import 'package:reddit_tutorial/features/post/screens/add_post_screen.dart';
 import 'package:reddit_tutorial/features/discover/discover_screen.dart';
 

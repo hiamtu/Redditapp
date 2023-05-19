@@ -94,6 +94,8 @@ flutter:
     - assets/images/awards/
     - assets/messages.json
     - assets/clip.mp4
+    - assets/sample_friends_feed.json
+    - assets/profile_pics/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

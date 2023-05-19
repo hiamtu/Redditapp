@@ -67,7 +67,7 @@ class PostCard extends ConsumerWidget {
           decoration: BoxDecoration(
             color: currentTheme.drawerTheme.backgroundColor,
           ),
-          padding: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               Expanded(
@@ -76,7 +76,7 @@ class PostCard extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 4,
-                        horizontal: 16,
+                        horizontal: 4,
                       ).copyWith(right: 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,7 +160,8 @@ class PostCard extends ConsumerWidget {
                           ),
                           if (post.location.isNotEmpty)
                             Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
+                              padding: const EdgeInsets.only(
+                                  top: 10.0, bottom: 10.0),
                               child: Row(children: [
                                 const Icon(
                                   Icons.location_on_outlined,
@@ -182,9 +183,12 @@ class PostCard extends ConsumerWidget {
                               width: double.infinity,
                               child: PinchZoom(
                                 maxScale: 2.5,
-                                child: Image.network(
-                                  post.link!,
-                                  fit: BoxFit.cover,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  child: Image.network(
+                                    post.link!,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
