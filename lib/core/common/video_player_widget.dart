@@ -11,7 +11,7 @@ class VideoPlayerWidget extends StatelessWidget {
   Widget build(BuildContext context) => controller.value.isInitialized
       ? Container(
           alignment: Alignment.topCenter,
-          child: buildVideo(),
+          child: buildVideo(context),
         )
       : const SizedBox(
           height: 200,
@@ -19,11 +19,13 @@ class VideoPlayerWidget extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
         );
-  Widget buildVideo() => Stack(children: [
-        buildVideoPlayer(),
+  Widget buildVideo(BuildContext context) => Stack(children: [
+        buildVideoPlayer(context),
         Positioned.fill(child: BasicOverlayWidget(controller: controller))
       ]);
-  Widget buildVideoPlayer() => AspectRatio(
-      aspectRatio: controller.value.aspectRatio,
+  Widget buildVideoPlayer(BuildContext context) => SizedBox(
+      // aspectRatio: controller.value.aspectRatio / 2,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height / 3,
       child: VideoPlayer(controller));
 }
