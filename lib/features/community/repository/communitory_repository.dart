@@ -139,5 +139,5 @@ class CommunityRepository {
       _firestore.collection(FirebaseConstants.postsCollection);
 
   CollectionReference get _communities =>
-      _firestore.collection(FirebaseConstants.commentsCollection);
+      _firestore.collection(FirebaseConstants.communitiesCollection);
 }
